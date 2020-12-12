@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+  - name: stripe
+    database: dbt-tutorial
+    tables:
+      - name: payment
+        description: Raw Stripe payment data.
+        loaded_at_field: _batched_at
+        freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+        columns:
+          - name: id
+            description: Primary key for payments
+          - name: orderid
+            description: Order ID the payment corresponds with
+          - name: paymentmethod
+            description: "{{ doc('payment') }}"
+          - name: status
+            description: "{{ doc('status') }}"
+          - name: amount
+            description: Amount of payment
+          - name: created
+            description: When the order was placed
+          - name: _batched_at
+            description: When the row was loaded in the table.
