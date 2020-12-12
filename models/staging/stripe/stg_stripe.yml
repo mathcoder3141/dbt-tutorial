@@ -1,0 +1,30 @@
+version: 2
+
+models: 
+    - name: stg_payments
+      description: Payment data for our jaffle store app.
+      columns:
+        - name: status
+          description: '{{ doc("status") }}'
+          tests:
+            - accepted_values:
+                values:
+                    - success
+                    - fail
+        - name: payment_method
+          description: '{{ doc("payment") }}'
+          tests:
+             - accepted_values:
+                 values:
+                      - credit_card 
+                      - bank_transfer
+                      - coupon
+                      - gift_card
+        - name: id
+          description: Primary key for payments
+        - name: order_id
+          description: Foreign key for orders
+        - name: amount
+          description: Amount of the order
+        - name: created_at
+          description: Date the order was placed
